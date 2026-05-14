@@ -1,0 +1,23 @@
+{
+  "name": "grantstack",
+  "version": "1.0.0",
+  "description": "GrantStack — Automated grant discovery & tracker for BuildHQ",
+  "main": "grantstack.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --use-system-ca server.js",
+    "setup": "node --use-system-ca grantstack.js --setup-only"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "googleapis": "^144.0.0",
+    "groq-sdk": "^1.2.0",
+    "node-cron": "^4.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}

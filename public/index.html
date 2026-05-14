@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrantStack — BuildHQ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <div>
+          <span class="logo-title">GrantStack</span>
+          <span class="logo-sub">BuildHQ Grant Tracker</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a id="sheet-link" href="#" target="_blank" class="btn btn-outline">Open Google Sheet ↗</a>
+        <button id="refresh-btn" class="btn btn-primary" onclick="triggerRefresh()">Refresh Grants</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- STATS BAR -->
+    <section class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-label">Total Grants</div>
+      </div>
+      <div class="stat-card urgent">
+        <div class="stat-num" id="stat-closing">—</div>
+        <div class="stat-label">Closing Soon</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-applied">—</div>
+        <div class="stat-label">Applied</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-num" id="stat-awarded">—</div>
+        <div class="stat-label">Awarded</div>
+      </div>
+    </section>
+
+    <!-- CLOSING SOON -->
+    <section id="closing-soon-section">
+      <div class="section-header">
+        <h2><span class="badge-urgent">URGENT</span> Closing Soon</h2>
+        <span class="section-sub">Grants with deadlines within 60 days</span>
+      </div>
+      <div id="closing-soon-cards" class="cards-grid">
+        <div class="loading">Loading...</div>
+      </div>
+    </section>
+
+    <!-- SUBMIT A GRANT LINK -->
+    <section class="submit-section">
+      <div class="submit-card">
+        <h2>Submit a Grant Link</h2>
+        <p>Paste any grant URL — AI will extract the details and add it to your sheet automatically.</p>
+        <div class="submit-form">
+          <input type="url" id="grant-url" placeholder="https://example.com/grant-programme" />
+          <button class="btn btn-primary" onclick="submitGrantUrl()">
+            <span id="submit-btn-text">Add to Sheet</span>
+          </button>
+        </div>
+        <div id="submit-result" class="submit-result hidden"></div>
+      </div>
+    </section>
+
+    <!-- ALL GRANTS TABLE -->
+    <section class="table-section">
+      <div class="section-header">
+        <h2>All Grants</h2>
+        <div class="table-controls">
+          <select id="filter-type" onchange="applyFilters()">
+            <option value="">All Types</option>
+            <option>Government</option>
+            <option>Corporate / CSR</option>
+            <option>Foundation</option>
+            <option>International Org</option>
+            <option>Accelerator</option>
+            <option>NGO / Non-profit</option>
+            <option>Challenge / Competition</option>
+          </select>
+          <select id="filter-industry" onchange="applyFilters()">
+            <option value="">All Industries</option>
+            <option>EdTech</option>
+            <option>Tech Hub / Innovation</option>
+            <option>Developer Community</option>
+            <option>Skills & Workforce</option>
+            <option>General Tech Startup</option>
+            <option>Social Impact</option>
+          </select>
+          <select id="filter-equity" onchange="applyFilters()">
+            <option value="">Equity-Free?</option>
+            <option value="Yes">Yes — Equity Free</option>
+            <option value="No">No</option>
+          </select>
+          <select id="filter-status" onchange="applyFilters()">
+            <option value="">All Statuses</option>
+            <option>Not Started</option>
+            <option>Researching</option>
+            <option>In Progress</option>
+            <option>Submitted</option>
+            <option>Awaiting Response</option>
+            <option>Awarded</option>
+            <option>Rejected</option>
+          </select>
+          <input type="text" id="search-input" placeholder="Search grants..." oninput="applyFilters()" />
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="grants-table">
+          <thead>
+            <tr>
+              <th>Grant</th>
+              <th>Organization</th>
+              <th>Type</th>
+              <th>Industry</th>
+              <th>Equity-Free</th>
+              <th>Amount</th>
+              <th>Deadline</th>
+              <th>Status</th>
+              <th>Apply</th>
+            </tr>
+          </thead>
+          <tbody id="grants-tbody">
+            <tr><td colspan="9" class="loading">Loading grants...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="table-count" class="table-count"></div>
+    </section>
+
+    <!-- GRANT DETAIL MODAL -->
+    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>GrantStack · BuildHQ · Nigeria</span>
+    <a id="footer-sheet-link" href="#" target="_blank">Open Full Google Sheet ↗</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
