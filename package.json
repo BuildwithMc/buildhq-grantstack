@@ -5,7 +5,7 @@
   "main": "grantstack.js",
   "type": "module",
   "scripts": {
-    "start": "node --use-system-ca server.js",
+    "start": "node server.js",
     "setup": "node --use-system-ca grantstack.js --setup-only"
   },
   "engines": {
